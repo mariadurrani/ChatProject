@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Net.Sockets;
 using System.Text;
 
@@ -20,23 +21,54 @@ class Program
         System.Threading.Thread receiveThread = new System.Threading.Thread(ReceiveMessages);
         receiveThread.Start();
 
-        Console.Write("Username: ");
-        var username = Console.ReadLine();
-        Console.Write("Password: ");
-        var password = Console.ReadLine();
-
-
-        SendMessage("register " + username + " " + password);
-
-
-
-        // Send messages to server
-        string message;
         while (true)
         {
-            message = Console.ReadLine();
-            SendMessage(message);
+
+
+            Console.WriteLine("Login or register?");
+            Console.WriteLine("register");
+            Console.WriteLine("login");
+
+            string choice = Console.ReadLine();
+
+            if (choice.ToLower() == "register")
+            {
+                Console.Write("Username: ");
+                var username = Console.ReadLine();
+                Console.Write("Password: ");
+                var password = Console.ReadLine();
+
+
+                SendMessage("register " + username + " " + password);
+            }
+            else if (choice.ToLower() == "login")
+            {
+                Console.Write("Username: ");
+                var username = Console.ReadLine();
+                Console.Write("Password: ");
+                var password = Console.ReadLine();
+
+                SendMessage("login " + username + " " + password);
+
+                string loginResponse = Console.ReadLine(); // Receive response from the server
+
+             
+            }
+            else
+            {
+                Console.WriteLine("Invalid command.");
+            }
+
+            string message;
+            while (true)
+            {
+                message = Console.ReadLine();
+                SendMessage(message);
+            }
+
+
         }
+
     }
 
     static void ReceiveMessages()

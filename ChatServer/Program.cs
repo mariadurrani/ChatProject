@@ -80,13 +80,15 @@ class Program
                         var isLoggedIn = Login(chatClient, split[1], split[2]);
                         if (isLoggedIn)
                         {
-                            SendMessageClient(chatClient, "You are now logged in " + chatClient.Username);
+                            SendMessageClient(chatClient, "Login successful. Welcome, " + chatClient.Username);
+                            SendMessageClient(chatClient, "Enter 'send <your message>' to send a message to everyone.");
+                            SendMessageClient(chatClient, "Enter 'private <your message> <user>' to send a private message to a user.");
+
                         }
                         else
                         {
-                            SendMessageClient(chatClient, "Wrong username and password");
+                            SendMessageClient(chatClient, "Login failed. Invalid username or password.");
                         }
-
                         break;
                     case "send":
 
